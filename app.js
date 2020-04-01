@@ -11,7 +11,7 @@
   const Postagem = mongoose.model("postagens")
   require("./models/Categoria")
   const Categoria = mongoose.model("categorias")
- 
+  const usuario = require('./routes/usuario')
   //CONFIGURAÇOES
     //Sessions
       app.use(session({
@@ -42,6 +42,7 @@
       })
   //ROTAS
     app.use('/admin',admin)
+    app.use('/usuarios',usuario)
 
     app.get('/',(req,res)=>{
       Postagem.find().populate("categoria").sort({data:"desc"})
