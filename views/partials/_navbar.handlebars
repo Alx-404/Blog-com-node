@@ -11,12 +11,18 @@
       <li class="nav-item">
         <a class="nav-link" href="/categorias">Categorias</a>
       </li>
+      {{#if user}}
       <li class="nav-item">
-        <a class="nav-link" href="#">login</a>
+        <a class="nav-link" href="/usuarios/logout">Logout</a>
+      </li>
+      {{else}}
+      <li class="nav-item">
+        <a class="nav-link" href="/usuarios/login">login</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">registro</a>
+        <a class="nav-link" href="/usuarios/registro">registro</a>
       </li>
+      {{/if}}
     </ul>
     <span class="navbar-text">
       Navbar text with an inline element

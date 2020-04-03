@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 require('../models/Usuario')
 const Usuario = mongoose.model("usuarios")
 const bcrypt = require ("bcryptjs")
+const passport = require("passport")
 
 router.get("/registro",(req,res)=>{
     res.render("usuarios/registro")
@@ -48,6 +49,7 @@ router.post("/registro",(req,res)=>{
                     nome:req.body.nome,
                     email:req.body.email,
                     senha:req.body.senha
+                    
                 })
 
                 bcrypt.genSalt(10,(erro,salt)=>{
@@ -81,4 +83,19 @@ router.get("/login",(req,res)=>{
     res.render("usuarios/login")
 })
 
+router.post("/login",(req,res,next)=>{
+
+    passport.authenticate("local",{
+        successRedirect:"/",
+        failureRedirect: "/usuarios/login",
+        failureFlash: true
+    })(req,res,next)
+
+})
+
+router.get("/logout",(req,res)=>{
+    req.logout()
+    req.flash("sucess_msg","Deslogado com sucesso")
+    res.redirect("/")
+})
 module.exports = router
